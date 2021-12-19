@@ -1,15 +1,20 @@
+import {Role} from "./role";
+
 export class User {
     id: number;
     first_name: string;
     last_name: string;
     email: string;
-    role: any;
+    role: Role;
+    pesmissions: string[]
 
-    constructor(id = 0, first_name = '', last_name = '', email = '', role = null) {
+    constructor(id = 0, first_name = '', last_name = '', email = '', role = new Role(), permissions =[]) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.role = role;
+        this.pesmissions = permissions
+
     }
 }
