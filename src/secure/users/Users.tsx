@@ -1,4 +1,4 @@
-import React , {Component} from "react";
+import React, {Component, SyntheticEvent} from "react";
 import Wrapper from "../components/Wrapper";
 import axios from "axios";
 import {User} from "../../classes/user";
@@ -9,28 +9,52 @@ import {Link} from "react-router-dom";
 class Users extends Component {
     state = {
         users: [],
-        page: 1
+        //page: 1
     }
 
-    //page = 1
+    page = 1
+    last_page = 0
 
     componentDidMount = async () => {
-        const response = await axios.get(`users?page=${this.state.page}`)
+        const response = await axios.get(`users?page=${this.page}`)
 
-        console.log(response)
+        //console.log(response)
         this.setState({
             users: response.data.data
         })
+
+        this.last_page = response.data.meta.last_page
     }
 
-    next = async () => {
-        //this.page++;
-        // this.setState({
-        //     page: this.state.page + 1
-        // })
+    prev = async () => {
+        //e.preventDefault()
+        if (this.page === 1)  return
+        this.page--;
 
-        this.setState({ page: this.state.page + 1 });
+
+
         await this.componentDidMount();
+    }
+
+    next = async (e:SyntheticEvent ) => {
+        e.preventDefault()
+        if (this.page === this.last_page)  return
+        this.page++;
+
+        await this.componentDidMount();
+    }
+
+    delete = async (id: number) => {
+
+        if (window.confirm('Are you sure you want to delete this user?')) {
+
+         const res =  await  axios.delete(`users/${id}`);
+         console.log(res)
+
+            this.setState({
+                users: this.state.users.filter((u:User) => u.id !== id)
+            })
+        }
     }
 
     render() {
@@ -68,7 +92,8 @@ class Users extends Component {
                                         <td>
                                             <div className="btn-group mr-2">
                                                 <a href="" className="btn btn-sm btn-outline-secondary">Edit</a>
-                                                <a href="" className="btn btn-sm btn-outline-secondary">Delete</a>
+                                                <a href="" className="btn btn-sm btn-outline-secondary"
+                                                   onClick={() =>this.delete(user.id)}>Delete</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -85,7 +110,7 @@ class Users extends Component {
                 <nav>
                     <ul className="pagination">
                         <li className="page-item">
-                            <a href="" className="page-link">Previous</a>
+                            <a href="" className="page-link" onClick={this.prev}>Previous</a>
                         </li>
                         <li className="page-item">
                             <a href="" className="page-link" onClick={this.next}>Next</a>

@@ -6,7 +6,7 @@ export class User {
     last_name: string;
     email: string;
     role: Role;
-    pesmissions: string[]
+    permissions: string[]
 
     constructor(id = 0, first_name = '', last_name = '', email = '', role = new Role(), permissions =[]) {
         this.id = id;
@@ -14,7 +14,7 @@ export class User {
         this.last_name = last_name;
         this.email = email;
         this.role = role;
-        this.pesmissions = permissions
+        this.permissions = permissions
 
     }
 }
