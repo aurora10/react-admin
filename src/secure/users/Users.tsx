@@ -44,12 +44,12 @@ class Users extends Component {
         await this.componentDidMount();
     }
 
-    delete = async (id: number) => {
-
+    delete = async (id: number, e:SyntheticEvent) => {
+        e.preventDefault()
         if (window.confirm('Are you sure you want to delete this user?')) {
 
-         const res =  await  axios.delete(`users/${id}`);
-         console.log(res)
+           await  axios.delete(`users/${id}`);
+
 
             this.setState({
                 users: this.state.users.filter((u:User) => u.id !== id)
@@ -63,9 +63,9 @@ class Users extends Component {
         return (
             <Wrapper>
                 <div className="d-flex justify-content-between flex-wrap flex-md-no-wrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <div className="btn-toolbar mb-2 mb-md-0">
-                            <Link to={'users/create'} className="btn btn-sm btn-outline-secondary">Add</Link>
-                        </div>
+                    <div className="btn-toolbar mb-2 mb-md-0">
+                        <Link to={'users/create'} className="btn btn-sm btn-outline-secondary">Add</Link>
+                    </div>
                 </div>
 
                 <div className="table-responsive">
@@ -91,9 +91,9 @@ class Users extends Component {
                                         <td>{user.role.name}</td>
                                         <td>
                                             <div className="btn-group mr-2">
-                                                <a href="" className="btn btn-sm btn-outline-secondary">Edit</a>
-                                                <a href="" className="btn btn-sm btn-outline-secondary"
-                                                   onClick={() =>this.delete(user.id)}>Delete</a>
+                                                <Link to={`/users/${user.id}/edit`} className="btn btn-sm btn-outline-secondary">Edit</Link>
+                                                <a className="btn btn-sm btn-outline-secondary"
+                                                      onClick={(e:SyntheticEvent) =>this.delete(user.id, e)}>Delete</a>
                                             </div>
                                         </td>
                                     </tr>
