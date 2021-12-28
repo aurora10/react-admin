@@ -19,14 +19,15 @@ class Roles extends Component {
         })
     }
 
-    delete = async (id: number) => {
-        if (window.confirm('Are you sure you want to delete this user?')) {
+    delete = async (id: number, e:SyntheticEvent) => {
+        e.preventDefault()
+        if (window.confirm('Are you sure you want to delete this role?')) {
 
             await  axios.delete(`roles/${id}`);
 
 
             this.setState({
-                users: this.state.roles.filter((r:Role) => r.id !== id)
+                roles: this.state.roles.filter((r:Role) => r.id !== id)
             })
         }
     }
@@ -62,7 +63,7 @@ class Roles extends Component {
                                     <td><div className="btn-group mr-2">
                                         <Link to={`/roles/${role.id}/edit`} className="btn btn-sm btn-outline-secondary">Edit</Link>
                                         <a className="btn btn-sm btn-outline-secondary"
-                                           onClick={() =>this.delete(role.id)}>Delete</a>
+                                           onClick={(e:SyntheticEvent) =>this.delete(role.id, e)}>Delete</a>
                                     </div></td>
 
                                  </tr>

@@ -15,7 +15,7 @@ import {Redirect} from "react-router-dom";
             try {
                 const response = await axios.get('user');
 
-                console.log(response)
+                //console.log(response)
             } catch (e) {
                 this.setState({
                     redirect: true
