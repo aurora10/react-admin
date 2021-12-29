@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import {Product} from "../../classes/product";
 import Paginator from "../components/Paginator";
+import Deleter from "../components/Deleter";
 
 
 
@@ -44,17 +45,13 @@ class Products extends Component {
     //     await this.componentDidMount();
     // }
 
-    delete = async (id: number, e:SyntheticEvent) => {
-        e.preventDefault()
-        if (window.confirm('Are you sure you want to delete this product?')) {
-
-            await  axios.delete(`products/${id}`);
+    handleDelete = async (id: number) => {
 
 
             this.setState({
                 products: this.state.products.filter((p:Product) => p.id !== id)
             })
-        }
+
     }
 
     handlePageChange = async (page : number) => {
@@ -91,15 +88,14 @@ class Products extends Component {
                                 return (
                                     <tr key={product.id}>
                                         <td>{product.id}</td>
-                                        <td><img src={product.image} width="50 "/></td>
+                                        <td><img src={product.image} width="50" height="37.5"/></td>
                                         <td>{product.title}</td>
                                         <td>{product.description}</td>
                                         <td>{product.price}</td>
                                         <td>
                                             <div className="btn-group mr-2">
                                                 <Link to={`/products/${product.id}/edit`} className="btn btn-sm btn-outline-secondary">Edit</Link>
-                                                <a className="btn btn-sm btn-outline-secondary"
-                                                   onClick={(e:SyntheticEvent) =>this.delete(product.id, e)}>Delete</a>
+                                                <Deleter id={product.id} endpoint={'products'} handleDelete={this.handleDelete}/>
                                             </div>
                                         </td>
                                     </tr>

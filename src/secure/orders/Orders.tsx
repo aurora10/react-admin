@@ -1,50 +1,32 @@
-import React, {Component, SyntheticEvent} from "react";
+import React, {Component} from 'react';
 import Wrapper from "../components/Wrapper";
 import axios from "axios";
-import {User} from "../../classes/user";
 import {Link} from "react-router-dom";
 import Paginator from "../components/Paginator";
-import Deleter from "../components/Deleter";
+import {Order} from "../../classes/order";
 
+class Orders extends Component {
 
-
-class Users extends Component {
     state = {
-        users: [],
-        //page: 1
+        orders: []
     }
-
     page = 1
     last_page = 0
 
-    componentDidMount = async () => {
-        const response = await axios.get(`users?page=${this.page}`)
+    componentDidMount = async ()  =>{
+            const response = await axios.get(`orders?page=${this.page}`)
 
-        //console.log(response)
         this.setState({
-            users: response.data.data
+            orders: response.data.data
         })
 
         this.last_page = response.data.meta.last_page
     }
 
-    handlePageChange = async (page : number) => {
+    handlePageChange = async (page: number) => {
         this.page = page
 
         await this.componentDidMount()
-    }
-
-    handleDelete = async (id: number) => {
-        //e.preventDefault()
-        // if (window.confirm('Are you sure you want to delete this user?')) {
-        //
-        //    await  axios.delete(`users/${id}`);
-
-
-            this.setState({
-                users: this.state.users.filter((u:User) => u.id !== id)
-            })
-       // }
     }
 
     render() {
@@ -65,26 +47,24 @@ class Users extends Component {
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Role</th>
+                            <th scope="col">Total</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {this.state.users.map(
-                            (user: User) => {
+                        {this.state.orders.map(
+                            (order: Order) => {
 
                                 return (
-                                    <tr>
-                                        <td>{user.id}</td>
-                                        <td>{user.first_name} {user.last_name}</td>
-                                        <td>{user.email}</td>
-                                        <td>{user.role.name}</td>
+                                    <tr key={order.id}>
+                                        <td>{order.id}</td>
+                                        <td>{order.first_name} {order.last_name}</td>
+                                        <td>{order.email}</td>
+                                        <td>{order.total}</td>
                                         <td>
                                             <div className="btn-group mr-2">
-                                                <Link to={`/users/${user.id}/edit`} className="btn btn-sm btn-outline-secondary">Edit</Link>
-                                                {/*<a className="btn btn-sm btn-outline-secondary"*/}
-                                                {/*      onClick={(e:SyntheticEvent) =>this.delete(user.id, e)}>Delete</a>*/}
-                                                <Deleter id={user.id} endpoint={'users'} handleDelete={this.handleDelete}/>
+                                                <Link to={`/orders/${order.id}/edit`} className="btn btn-sm btn-outline-secondary">View</Link>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -100,9 +80,8 @@ class Users extends Component {
 
                 <Paginator lastPage = {this.last_page} handleChange={this.handlePageChange}/>
             </Wrapper>
-        )
+        );
     }
 }
 
-
-export default Users;
+export default Orders;
