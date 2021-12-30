@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import Wrapper from "../components/Wrapper";
+import Wrapper from "../dashboard/components/Wrapper";
 import axios from "axios";
 import {Order} from "../../classes/order";
 import {Link} from "react-router-dom";
-import Paginator from "../components/Paginator";
+import Paginator from "../dashboard/components/Paginator";
 import {Order_Item} from "../../classes/order_item";
 
 class OrderItems extends Component<{match: any}> {

@@ -1,5 +1,5 @@
 import React, {Component, SyntheticEvent} from 'react';
-import Wrapper from "../components/Wrapper";
+import Wrapper from "../dashboard/components/Wrapper";
 import axios from "axios";
 import {Permission} from "../../classes/permission";
 import {Redirect} from "react-router-dom";

@@ -1,5 +1,5 @@
 import React, {Component, PropsWithRef, SyntheticEvent} from 'react';
-import Wrapper from "../components/Wrapper";
+import Wrapper from "../dashboard/components/Wrapper";
 import {Role} from "../../classes/role";
 import axios, {AxiosError} from "axios";
 import {User} from "../../classes/user";

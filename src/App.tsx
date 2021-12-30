@@ -8,7 +8,7 @@
   import {BrowserRouter, Route} from "react-router-dom";
   import Login from "./public/Login";
   import Register from "./public/Register";
-  import RedirectToDashboard from "./secure/components/RedirectToDashboaed";
+  import RedirectToDashboard from "./secure/dashboard/components/RedirectToDashboaed";
   import UserCreate from "./secure/users/UserCreate";
   import UserEdit from "./secure/users/UserEdit";
   import Roles from "./secure/roles/Roles";
@@ -19,6 +19,7 @@
   import ProductEdit from "./secure/products/ProductEdit";
   import Orders from "./secure/orders/Orders";
   import OrderItems from "./secure/orders/OrderItems";
+  import Profile from "./secure/profile/Profile";
 
 
   function App() {
@@ -28,6 +29,7 @@
                 <BrowserRouter>
                   <Route path={'/'} exact component={RedirectToDashboard} />
                   <Route path={'/dashboard'} exact component={Dashboard} />
+                  <Route path={'/profile'} exact component={Profile} />
                   <Route path={'/login'}  component={Login} />
                   <Route path={'/register'}  component={Register} />
                   <Route path={'/users'}  component={Users} exact/>

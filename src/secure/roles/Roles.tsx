@@ -1,10 +1,10 @@
 import React, {Component, SyntheticEvent} from 'react';
-import Wrapper from "../components/Wrapper";
+import Wrapper from "../dashboard/components/Wrapper";
 import axios from "axios";
 import {Role} from "../../classes/role";
 import {Link} from "react-router-dom";
 import {User} from "../../classes/user";
-import Deleter from "../components/Deleter";
+import Deleter from "../dashboard/components/Deleter";
 
 class Roles extends Component {
 

@@ -1,8 +1,8 @@
 import React, {Component, SyntheticEvent} from 'react';
-import Wrapper from "../components/Wrapper";
+import Wrapper from "../dashboard/components/Wrapper";
 import axios from "axios";
 import {Redirect} from "react-router-dom";
-import ImageUpload from "../components/ImageUpload";
+import ImageUpload from "../dashboard/components/ImageUpload";
 
 class ProductEdit extends Component <{match: any}>{
     state = {

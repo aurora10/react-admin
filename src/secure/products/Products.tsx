@@ -1,10 +1,10 @@
 import React, {Component, SyntheticEvent} from 'react';
-import Wrapper from "../components/Wrapper";
+import Wrapper from "../dashboard/components/Wrapper";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {Product} from "../../classes/product";
-import Paginator from "../components/Paginator";
-import Deleter from "../components/Deleter";
+import Paginator from "../dashboard/components/Paginator";
+import Deleter from "../dashboard/components/Deleter";
 
 
 
