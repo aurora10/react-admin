@@ -1,96 +1,86 @@
-import React, {Component, SyntheticEvent} from 'react';
+import React, {Component, Dispatch, SyntheticEvent} from 'react';
 import Wrapper from "../dashboard/components/Wrapper";
-import axios from "axios";
+import axios from 'axios';
 import {User} from "../../classes/user";
 import {connect} from "react-redux";
+import setUser from "../../redux/actions/setUserAction";
 
-class Profile extends Component <any>{
+
+class Profile extends Component<any> {
     state = {
         first_name: '',
         last_name: '',
-        email: ''
+        email: '',
     }
-
-
     first_name = '';
     last_name = '';
     email = '';
     password = '';
     password_confirm = '';
 
-    // componentDidMount = async () =>{
-    //     const response =await axios.get('user')
-    //
-    //     const user : User = response.data.data
-    //
-    //     this.setState({
-    //         first_name: user.first_name,
-    //         last_name: user.last_name,
-    //         email: user.email
-    //     })
-    //
-    //
-    // }
-    // now get user form redux
-
     updateInfo = async (e: SyntheticEvent) => {
-        e.preventDefault()
-      const response =   await axios.put('users/info', {
+        e.preventDefault();
+
+        const response = await axios.put('users/info', {
             first_name: this.first_name,
             last_name: this.last_name,
-            email: this.email
-        })
+            email: this.email,
 
-        const user : User = response.data
+        })
+        console.log(response)
+        const user: User = response.data;
+
         this.props.setUser(new User(
             user.id,
             user.first_name,
             user.last_name,
             user.email,
             user.role,
-            user.permissions
-        ))
+            user.permissions,
+
+        ));
     }
 
     updatePassword = async (e: SyntheticEvent) => {
-        e.preventDefault()
+        e.preventDefault();
 
-       const response = await axios.put('users/password', {
+        await axios.put('users/password', {
             password: this.password,
             password_confirm: this.password_confirm
         })
-
-        //console.log(response)
+        alert('Done')
     }
 
     render() {
         return (
             <Wrapper>
+
                 <h2>Account Information</h2>
                 <hr/>
                 <form onSubmit={this.updateInfo}>
                     <div className="form-group">
                         <label>First Name</label>
                         <input type="text" className="form-control" name="first_name"
-                               defaultValue={this.props.user.first_name}
+                               defaultValue={this.first_name = this.props.user.first_name}
                                onChange={e => this.first_name = e.target.value}
                         />
                     </div>
                     <div className="form-group">
                         <label>Last Name</label>
                         <input type="text" className="form-control" name="last_name"
-                               defaultValue={this.props.user.last_name}
+                               defaultValue={this.last_name = this.props.user.last_name}
                                onChange={e => this.last_name = e.target.value}
                         />
                     </div>
                     <div className="form-group">
                         <label>Email</label>
                         <input type="text" className="form-control" name="email"
-                               defaultValue={this.props.user.email}
+                               defaultValue={this.email = this.props.user.email}
+
                                onChange={e => this.email = e.target.value}
                         />
                     </div>
-<br/>
+<hr/>
                     <button className="btn btn-outline-secondary">Save</button>
                 </form>
 
@@ -100,7 +90,7 @@ class Profile extends Component <any>{
                     <div className="form-group">
                         <label>Password</label>
                         <input type="password" className="form-control" name="password"
-                              onChange={e => this.password = e.target.value}
+                               onChange={e => this.password = e.target.value}
                         />
                     </div>
                     <div className="form-group">
@@ -109,7 +99,7 @@ class Profile extends Component <any>{
                                onChange={e => this.password_confirm = e.target.value}
                         />
                     </div>
-<br/>
+<hr/>
                     <button className="btn btn-outline-secondary">Save</button>
                 </form>
             </Wrapper>
@@ -118,4 +108,4 @@ class Profile extends Component <any>{
 }
 
 // @ts-ignore
-export default connect(state => ({user:state.user}), dispatch => ({setUser: dispatch(user)})) (Profile);
+export default connect(state => ({user: state.user}), dispatch => ({setUser: user => dispatch(setUser(user))}))(Profile);

@@ -8,7 +8,7 @@
   import {BrowserRouter, Route} from "react-router-dom";
   import Login from "./public/Login";
   import Register from "./public/Register";
-  import RedirectToDashboard from "./secure/dashboard/components/RedirectToDashboaed";
+  import RedirectToDashboard from "./secure/dashboard/components/RedirectToDashboard";
   import UserCreate from "./secure/users/UserCreate";
   import UserEdit from "./secure/users/UserEdit";
   import Roles from "./secure/roles/Roles";

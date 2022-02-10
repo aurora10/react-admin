@@ -75,4 +75,6 @@ class Wrapper extends Component <PropsWithChildren<any>>{
                 setUser: (user:User) => dispatch(setUser(user))
             }
     }
-export default connect(mapStateToProps, mapDispatchToProps) (Wrapper);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wrapper);
+
